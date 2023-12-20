@@ -10,12 +10,37 @@ function Layout() {
 
     const userType = localStorage.getItem('userType');
 
-    const[isAdapterVisable] = useState(userType === "Adopter");
-    const[isShelterVisable] = useState(userType === "Shelter");
-    const[isVeterinarianVisable] = useState(userType === "Veterinarian");
-    const[isAdminVisable] = useState(userType === "Admin");
+    const[isAdapterVisable, setIsAdapterVisible] = useState(userType === "Adopter");
+    const[isShelterVisable, setIsShelterVisible] = useState(userType === "Shelter");
+    const[isVeterinarianVisable, setIsVeterinarianVisible] = useState(userType === "Veterinarian");
+    const[isAdminVisable, setIsAdminVisible] = useState(userType === "Admin");
     console.log(localStorage.getItem("userType"))
 
+    useEffect(() => {
+
+        if(localStorage.getItem("userType") === "Adopter") {
+            setIsAdapterVisible(true)
+            setIsShelterVisible(false)
+            setIsVeterinarianVisible(false)
+            setIsAdminVisible(false)
+        }
+        else if(localStorage.getItem("userType") === "Shelter") {
+            setIsAdapterVisible(false)
+            setIsShelterVisible(true)
+            setIsVeterinarianVisible(false)
+            setIsAdminVisible(false)
+        } else if(localStorage.getItem("userType") === "Veterinarian") {
+            setIsAdapterVisible(false)
+            setIsShelterVisible(false)
+            setIsVeterinarianVisible(true)
+            setIsAdminVisible(false)
+        } else if(localStorage.getItem("userType") === "Admin") {  
+            setIsAdapterVisible(false)
+            setIsShelterVisible(false)
+            setIsVeterinarianVisible(false)
+            setIsAdminVisible(true)
+        }
+    }, [localStorage.getItem('userType')])
     
     useEffect(() => {
         if(currentLocation.pathname === "/auth") {
