@@ -15,14 +15,27 @@ function List() {
 
   const handleFilterSubmit = () => {
     // Construct the query parameters based on the filter inputs
-    const params = new URLSearchParams({
+    const params = {
         minAge: minAge,
         maxAge: maxAge,
         sex: sex,
         breed : breed
-    }).toString();
+    };
 
-    axios.get(`https://localhost:7073/api/Pet/FilterPets?${params}`).then(response => {
+    if(params.minAge === ''){
+        params.minAge = null;
+    }
+    if(params.maxAge === ''){
+        params.maxAge = null;
+    }
+    if(sex === ''){
+        params.sex = null;
+    }
+    if(breed === ''){
+        params.breed = null;
+    }
+
+    axios.post(`https://localhost:7073/api/Pet/FilterPets`, params).then(response => {
         setAnimals(response.data);
     });
 };
