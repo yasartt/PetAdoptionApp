@@ -31,6 +31,7 @@ function MyApplications() {
             </TabList>
 
             <TabPanel>
+            <p className="text-center text-lg font-bold">Pending Applications</p>
             {applications.map(application => (
                             <Link to={`/details/${application.petId}`} className="flex flex-row bg-bunny-100 border-2 border-bunny-400 rounded-xl m-4">
 
@@ -57,6 +58,8 @@ function MyApplications() {
             </TabPanel>
 
             <TabPanel>
+            <p className="text-center text-lg font-bold">Declined Applications</p>
+
             {declines.map(decline => (
                                             <Link to={`/details/${decline.petId}`} className="flex flex-row bg-bunny-100 border-2 border-bunny-400 rounded-xl m-4">
 

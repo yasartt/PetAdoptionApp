@@ -41,6 +41,7 @@ function App() {
                   <Route path='/detailsVet/:id' element={<DetailsV />} />
                   <Route path="/details/:id" element={<Details/>}/>
                   <Route path="/viewShelter/:id" element={<ViewShelter/>}/>
+                  
                 </Route>
             </Routes>
         </Router>

@@ -1,9 +1,69 @@
 //import './App.css';
 import {Link } from "react-router-dom";
 import davsan from './../davsan.jpeg';
-
+import { storage } from './../firebase'; // Import the storage instance
+import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
+import { useState, useEffect } from "react";
+function checkIfFileExists(filePath) {
+    const storage = getStorage();
+    const storageRef = ref(storage, `pets/${filePath}`);
+    let annen = ""
+  
+    getDownloadURL(storageRef)
+      .then(url => {
+        annen = url
+      })
+      .catch(error => {
+        if (error.code === 'storage/object-not-found') {
+          annen = "cu"
+        } else {
+          annen = "cu"
+        }
+      });
+      return annen
+  }
 
 function AddPet() {
+
+    const [urll,setUrl] = useState('')
+  useEffect(() => {
+    const storage = getStorage();
+    const storageRef = ref(storage, `pets/${localStorage.getItem('userId')}`);
+
+    getDownloadURL(storageRef)
+      .then(url => {
+        setUrl(url)
+      })
+      .catch(error => {
+        if (error.code === 'storage/object-not-found') {
+          setUrl("cu")
+        } else {
+          setUrl("cu")
+        }
+      });
+      
+    console.log(`annen: ${checkIfFileExists(localStorage.getItem('userId'))} ${urll}`)
+  }, []);
+
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `pets/${file.name}`);
+
+      // 'file' comes from the Blob or File API
+      uploadBytes(storageRef, file).then((snapshot) => {
+        alert('Upload Successfull');
+      });
+    } else {
+      alert('No file selected');
+    }
+  };
   return (
     <div className="flex flex-col items-center">
 
@@ -11,7 +71,7 @@ function AddPet() {
 
             <div className="flex flex-col w-1/2 space-y-2 bg-bunny-100 rounded-lg p-2 items-center">
                 <div className="flex flex-col items-center">
-                    <p>Upload Pet Photo</p>
+                    <input type="file" onChange={handleFileChange} />
                     <p className="text-7xl mt-12">+</p>
                 </div>
             </div>
