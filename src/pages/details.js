@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 function Details() {
@@ -17,6 +18,7 @@ function Details() {
   const [animal,setAnimal] = useState()
   const [shelter, setShelter] = useState()
   const [record, setRecord] = useState()
+  const navigate = useNavigate();
   const records = [
     { id: 1, name: 'AIDS' },
     { id: 2, name: 'Bel Soguklugu' },
@@ -34,6 +36,25 @@ function Details() {
       setRecord(response.data)
     })
   }, [id]);
+
+  const handleApplication = () => {
+    const params = {
+      petId: id,
+      petAdopterId: localStorage.getItem('userId'),
+    };
+
+    params.petId = parseInt(params.petId);
+    params.petAdopterId = parseInt(params.petAdopterId);
+
+    axios.post(`https://localhost:7073/api/PetAdopter/ApplyForPet`, params).then(response => {
+      console.log(response.data)
+      if(response.data === true){
+        navigate('/profile')
+      }
+    }).catch(error => {
+      console.log(error)
+    });
+  }
 
 
   return (
@@ -81,7 +102,10 @@ function Details() {
         
         
 
-        <div className="bg-bunny-500 rounded-lg text-white p-3 fixed bottom-10">Apply</div>
+        <button 
+          className="bg-bunny-500 rounded-lg text-white p-3 fixed bottom-10"
+          onClick={() => handleApplication()}
+          >Apply</button>
 
     </div>
   );

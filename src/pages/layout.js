@@ -58,6 +58,9 @@ function Layout() {
         if(currentLocation.pathname === "/profile") {
             setTitle("Profile")
         }
+        if(currentLocation.pathname === "/myApplications") {
+            setTitle("My Applications")
+        }
         if(currentLocation.pathname === "/adminMain") {
             setTitle("Admin")
         }
@@ -114,6 +117,13 @@ function Layout() {
                 </div>)}
                 {title !== "Profile" && (<div className="p-3 bg-bunny-400 text-green-100 mx-2 rounded-xl flex justify-center">
                     <Link to="/profile">Profile</Link>
+                </div>)}
+
+                {title === "My Applications" && (<div className="p-3 bg-bunny-300 text-green-100 mx-2 rounded-xl flex justify-center">
+                    <Link to="/myApplications">My Applications</Link>
+                </div>)}
+                {title !== "My Applications" && (<div className="p-3 bg-bunny-400 text-green-100 mx-2 rounded-xl flex justify-center">
+                    <Link to="/myApplications">My Applications</Link>
                 </div>)}     
             </>
             )}

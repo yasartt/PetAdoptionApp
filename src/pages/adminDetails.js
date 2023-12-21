@@ -2,10 +2,34 @@
 import {Link } from "react-router-dom";
 import davsan from './../davsan.jpeg';
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
 function AdminD() {
 
     const { id } = useParams();
+
+    useEffect(() => {
+        axios.get(`https://localhost:7073/api/PetAdopter/GetAdoptionApplicationById/${id}`).then(response => {
+          console.log("Gelen application: " , response.data)
+        })
+    }, [id]);
+
+    const handleApprove = () => {
+        axios.get(`https://localhost:7073/api/PetAdopter/ApproveApplication/${id}`).then(response => {
+          console.log(response.data)
+        }).catch(error => {
+          console.log(error)
+        });
+    }
+
+    const handleDecline = () => {
+        axios.get(`https://localhost:7073/api/PetAdopter/DeclineApplication/${id}`).then(response => {
+          console.log(response.data)
+        }).catch(error => {
+            console.log(error)
+          });
+    }
 
   return (
     <div className="flex flex-col items-center space-y-3">
@@ -22,8 +46,14 @@ function AdminD() {
                 <p className="h-32">Info...</p>
             </div>
             <div className="fixed z-50 flex flex-row justify-center bottom-10 inset-x-0 space-x-16 ml-24">
-                <div className="bg-green-600 rounded-lg text-white p-3 ">Approve</div>
-                <div className="bg-red-600 rounded-lg text-white p-3  ">Decline</div>
+                <button 
+                    className="bg-green-600 rounded-lg text-white p-3 "
+                    onClick={() => handleApprove()}
+                >Approve</button>
+                <button 
+                    className="bg-red-600 rounded-lg text-white p-3"
+                    onClick={() => handleDecline()}    
+                >Decline</button>
             </div>
         </div>
         

@@ -17,6 +17,7 @@ import AddPet from './pages/addPet';
 import ProfileVet from './pages/profileVet';
 import DetailsV from './pages/detailsVet';
 import ViewShelter from './pages/viewShelter';
+import MyApplications from './pages/myApplications';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                   <Route path='/auth' element={<Auth />} />
                   <Route path='/list' element={<List />} />
                   <Route path='/profile' element={<Profile />} />
+                  <Route path='/myApplications' element={<MyApplications />} />
                   <Route path='/adminMain' element={<AdminM />} />
                   <Route path='/adminDetails/:id' element={<AdminD />} />
                   <Route path='/listShelter' element={<ListS />} />
