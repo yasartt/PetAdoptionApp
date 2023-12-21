@@ -1,15 +1,20 @@
 //import './App.css';
 import {Link } from "react-router-dom";
 import davsan from './../davsan.jpeg';
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function ListS() {
 
-  const pets = [
-    { id: 1, name: 'Lion' },
-    { id: 2, name: 'Elephant' },
-    { id: 3, name: 'Giraffe' },
-  ];
+  const [pets, setPets] = useState([]);
+
+  useEffect(() => {
+    axios.get(`https://localhost:7073/api/Shelter/GetPetsOfShelter/${localStorage.getItem("userId")}`)
+    .then(res => {
+      setPets(res.data)
+    })
+  } , [])
+
   return (
     <div className="flex flex-col items-center">
 
