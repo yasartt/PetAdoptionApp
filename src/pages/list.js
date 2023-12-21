@@ -93,7 +93,7 @@ function List() {
         <ul>
         {animals.map(animal => (
           <li key={animal.petId}>
-            <Link to={`/details/${animal.id}`} className="flex flex-row bg-bunny-100 border-2 border-bunny-400 rounded-xl m-4">
+            <Link to={`/details/${animal.petId}`} className="flex flex-row bg-bunny-100 border-2 border-bunny-400 rounded-xl m-4">
             <img src={davsan} alt="Davsan" className="w-1/4 rounded-l-lg overflow-clip"/>
             <div className="flex flex-col space-y-1 w-2/4 m-2 text-white justify-evenly">
                 <p className="bg-bunny-400 rounded-lg p-1">Name: {animal.name}</p>
